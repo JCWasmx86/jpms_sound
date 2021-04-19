@@ -1,3 +1,6 @@
 allprojects {
 	apply plugin: "java"
+	compileJava {
+		options.compilerArgs << "-g" << "-Xlint:all"
+	}
 }
