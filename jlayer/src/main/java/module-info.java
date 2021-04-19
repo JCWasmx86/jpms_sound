@@ -1,4 +1,4 @@
 module jlayer {
-	requires java.desktop;
+	requires transitive java.desktop;
 	exports javazoom.jl.decoder;
 }
