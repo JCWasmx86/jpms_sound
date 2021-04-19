@@ -7,6 +7,6 @@ allprojects {
 		mavenCentral()
 	}
 	compileJava {
-		options.compilerArgs << "-g" //<< "-Xlint:all"
+		options.compilerArgs << "-g" << "-Xlint:all"
 	}
 }
