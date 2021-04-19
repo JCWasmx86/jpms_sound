@@ -1,0 +1,6 @@
+include "jlayer"
+include "jorbis"
+include "mp3spi"
+include "tritonus"
+include "vorbisspi"
+
