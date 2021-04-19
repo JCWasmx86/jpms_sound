@@ -124,8 +124,8 @@ public class DecodedVorbisAudioInputStream extends TAsynchronousFilteredAudioInp
    */
   public Map properties()
   {
-	  properties.put("ogg.position.byte",new Long(currentBytes));
-	  return properties;	 
+	  properties.put("ogg.position.byte",currentBytes);
+	  return properties;
   }
   /**
    * Main loop.
