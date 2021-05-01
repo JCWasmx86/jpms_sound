@@ -2,7 +2,7 @@ apply plugin: "idea"
 allprojects {
 	apply plugin: "java"
 	apply plugin: "idea"
-	sourceCompatibility = 1.9
+	sourceCompatibility = 1.11
 	dependencies {
 		testImplementation group: 'junit', name: 'junit', version: '3.8.1'
 	}
@@ -11,5 +11,8 @@ allprojects {
 	}
 	compileJava {
 		options.compilerArgs << "-g" << "-Xlint:all"
+	}
+	wrapper {
+		gradleVersion = "7.0"
 	}
 }
