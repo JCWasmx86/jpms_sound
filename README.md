@@ -4,5 +4,8 @@ It may not work correctly at the moment.
 
 ## TODO
 
-- [ ] Migrate tests
+- [x] Migrate jlayer tests
+- [x] Migrate mp3spi tests
+- [x] Migrate vorbisspi tests
+- [ ] Migrate tritonus tests (For the distributed subset here, not all tests)
 - [ ] Modernize code
