@@ -22,7 +22,6 @@
 
 package org.tritonus.test;
 
-import jdk.jshell.execution.Util;
 import org.junit.jupiter.api.Assertions;
 import org.tritonus.share.TCircularBuffer;
 
@@ -61,8 +60,8 @@ public class TCircularBufferTestCase {
 
 
 		buffer.write(new byte[nWriteSize1]);
-		Assertions.assertEquals(nBufferSize - nWriteSize1, buffer.availableWrite(), "availableWrite());
-			Assertions.assertEquals(nWriteSize1, buffer.availableRead(), "availableRead()");
+		Assertions.assertEquals(nBufferSize - nWriteSize1, buffer.availableWrite(), "availableWrite()");
+		Assertions.assertEquals(nWriteSize1, buffer.availableRead(), "availableRead()");
 		buffer.write(new byte[nWriteSize2]);
 		Assertions.assertEquals(nBufferSize - nWriteSize1 - nWriteSize2, buffer.availableWrite(), "availableWrite()");
 		Assertions.assertEquals(nWriteSize1 + nWriteSize2, buffer.availableRead(), "availableRead()");
@@ -89,17 +88,18 @@ public class TCircularBufferTestCase {
 			abWriteArray[i] = (byte) (i % 256);
 		}
 		nResult = buffer.write(abWriteArray);
-		Assertions.assertEquals("written length", abWriteArray.length, nResult);
+		Assertions.assertEquals(abWriteArray.length, nResult, "written length");
 		nResult = buffer.read(abReadArray);
-		Assertions.assertEquals("read length", abReadArray.length, nResult);
-		assertTrue("data content", Util.compareByteArrays(abReadArray, 0, abWriteArray, 0, abReadArray.length));
+		Assertions.assertEquals(abReadArray.length, nResult, "read length");
+		Assertions.assertTrue(Util.compareByteArrays(abReadArray, 0, abWriteArray, 0, abReadArray.length), "data " +
+			"content");
 
 		buffer.write(new byte[nBufferSize / 3]);
 		nResult = buffer.write(abWriteArray, nBufferSize / 4, nBufferSize / 2);
-		Assertions.assertEquals("written length", nBufferSize / 2, nResult);
+		Assertions.assertEquals(nBufferSize / 2, nResult, "written length");
 		buffer.read(new byte[nBufferSize / 3]);
 		nResult = buffer.read(abReadArray, 0, nBufferSize / 2);
-		Assertions.assertEquals("read length", nBufferSize / 2, nResult);
+		Assertions.assertEquals(nBufferSize / 2, nResult, "written length");
 		Assertions.assertTrue(Util.compareByteArrays(abReadArray, 0, abWriteArray, nBufferSize / 4,
 			nBufferSize / 2), "data content");
 	}
@@ -112,12 +112,12 @@ public class TCircularBufferTestCase {
 		TCircularBuffer buffer = new TCircularBuffer(
 			nBufferSize, false, true, trigger);
 		buffer.read(new byte[10]);
-		assertTrue("trigger called", trigger.isCalled());
+		Assertions.assertTrue(trigger.isCalled(), "trigger called");
 
 		trigger.reset();
 		buffer.write(new byte[nBufferSize / 3]);
 		buffer.read(new byte[nBufferSize / 2]);
-		assertTrue("trigger called", trigger.isCalled());
+		Assertions.assertTrue(trigger.isCalled(), "trigger called");
 	}
 
 
@@ -128,18 +128,18 @@ public class TCircularBufferTestCase {
 		TCircularBuffer buffer = new TCircularBuffer(
 			nBufferSize, true, true, trigger);
 		buffer.write(new byte[nBufferSize / 2]);
-		Assertions.assertEquals("availableWrite()", nBufferSize / 2, buffer.availableWrite());
-		Assertions.assertEquals("availableRead()", nBufferSize / 2, buffer.availableRead());
+		Assertions.assertEquals(nBufferSize / 2, buffer.availableWrite(), "availableWrite()");
+		Assertions.assertEquals(nBufferSize / 2, buffer.availableRead(), "availableRead()");
 		buffer.close();
-		Assertions.assertEquals("availableWrite()", nBufferSize / 2, buffer.availableWrite());
-		Assertions.assertEquals("availableRead()", nBufferSize / 2, buffer.availableRead());
+		Assertions.assertEquals(nBufferSize / 2, buffer.availableWrite(), "availableWrite()");
+		Assertions.assertEquals(nBufferSize / 2, buffer.availableRead(), "availableRead()");
 		nResult = buffer.read(new byte[nBufferSize / 2]);
-		Assertions.assertEquals("read length", nBufferSize / 2, nResult);
-		Assertions.assertEquals("availableWrite()", nBufferSize, buffer.availableWrite());
-		Assertions.assertEquals("availableRead()", 0, buffer.availableRead());
+		Assertions.assertEquals(nBufferSize / 2, nResult, "read length");
+		Assertions.assertEquals(nBufferSize, buffer.availableWrite(), "availableWrite()");
+		Assertions.assertEquals(0, buffer.availableRead(), "availableRead()");
 		nResult = buffer.read(new byte[nBufferSize / 2]);
-		Assertions.assertEquals("read length", -1, nResult);
-		Assertions.assertTrue("trigger invocation", !trigger.isCalled());
+		Assertions.assertEquals(-1, nResult, "read length");
+		Assertions.assertTrue(!trigger.isCalled(), "trigger invocation");
 	}
 
 
