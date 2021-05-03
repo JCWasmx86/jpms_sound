@@ -7,5 +7,5 @@ It may not work correctly at the moment.
 - [x] Migrate jlayer tests
 - [x] Migrate mp3spi tests
 - [x] Migrate vorbisspi tests
-- [ ] Migrate tritonus tests (For the distributed subset here, not all tests)
+- [x] Migrate tritonus tests (For the distributed subset here, I hope I found all relevant tests)
 - [ ] Modernize code
